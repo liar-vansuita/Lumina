@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eee8ff"><meta name="description" content="Lumina — Ilumine seu futuro financeiro.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Lumina — Seu dinheiro, com clareza</title>
+<style>
+:root{--bg:#f1edff;--card:#fff;--ink:#28233a;--muted:#77718a;--accent:#7355c8;--soft:#e7ddff;--line:#e9e4f2;--danger:#c64d69;--good:#26856b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 15px;background:var(--accent);color:white;font-weight:650}.wrap{max-width:1100px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:27px;font-weight:850;letter-spacing:-1px}.brand span{color:var(--accent)}.sub{color:var(--muted);margin-top:2px}.actions{display:flex;gap:8px;flex-wrap:wrap}.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 5px 22px #30205b0a}.metric small{color:var(--muted)}.metric strong{display:block;font-size:26px;margin-top:8px}.positive{color:var(--good)}.negative{color:var(--danger)}.layout{display:grid;grid-template-columns: minmax(260px, .8fr) minmax(0,1.5fr);gap:14px}.card h2{font-size:18px;margin:0 0 15px}.field{display:grid;gap:6px;margin:11px 0}.field label{font-size:13px;color:var(--muted);font-weight:650}.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{width:100%;margin-top:8px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.toolbar select{padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.item b{display:block}.item small{color:var(--muted)}.amount{font-weight:750;white-space:nowrap}.delete{background:transparent;color:var(--danger);padding:5px 8px}.empty{color:var(--muted);text-align:center;padding:28px 8px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}.tabs{display:flex;gap:8px;overflow:auto;margin:18px 0}.tab{background:var(--card);color:var(--muted);border:1px solid var(--line);white-space:nowrap}.tab.active{background:var(--soft);color:var(--accent);border-color:transparent}.notice{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
+body.dark{--bg:#171522;--card:#242131;--ink:#f4f0ff;--muted:#aaa3bd;--soft:#393052;--line:#393447}
+@media(max-width:760px){.wrap{padding:15px}.grid{grid-template-columns:1fr;gap:9px;margin:14px 0}.metric strong{font-size:23px}.layout{grid-template-columns:1fr}.brand{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div><div class="brand">✦ <span>Lumina</span></div><div class="sub">Ilumine seu futuro financeiro.</div></div><div class="actions"><button class="ghost" id="themeBtn">☾ Tema</button><button class="ghost" id="exportBtn">Exportar dados</button></div></header>
+<nav class="tabs"><button class="tab active" data-tab="inicio">Visão geral</button><button class="tab" data-tab="movimentos">Movimentações</button><button class="tab" data-tab="objetivos">Objetivos</button></nav>
+<section id="inicio">
+<div class="grid">
+<div class="card metric"><small>Saldo do mês</small><strong id="balance">R$ 0,00</strong></div>
+<div class="card metric"><small>Receitas</small><strong class="positive" id="income">R$ 0,00</strong></div>
+<div class="card metric"><small>Despesas</small><strong class="negative" id="expense">R$ 0,00</strong></div>
+</div>
+<div class="layout">
+<section class="card"><h2>Adicionar movimentação</h2>
+<form id="form">
+<div class="field"><label for="description">Descrição</label><input id="description" placeholder="Ex.: salário, mercado..." required maxlength="70"></div>
+<div class="row"><div class="field"><label for="amount">Valor (R$)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="0,00" required></div><div class="field"><label for="type">Tipo</label><select id="type"><option value="expense">Despesa</option><option value="income">Receita</option></select></div></div>
+<div class="row"><div class="field"><label for="category">Categoria</label><select id="category"><option>Moradia</option><option>Alimentação</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Lazer</option><option>Salário</option><option>Extra</option><option>Outros</option></select></div><div class="field"><label for="date">Data</label><input id="date" type="date" required></div></div>
+<button class="full" type="submit">+ Salvar movimentação</button>
+<div class="notice">Seus dados ficam salvos neste dispositivo. Exporte uma cópia de segurança regularmente. A sincronização entre aparelhos será configurada em uma próxima etapa.</div>
+</form></section>
+<section class="card"><div class="toolbar"><h2>Últimas movimentações</h2><select id="monthFilter" aria-label="Filtrar mês"></select></div><div id="transactions"></div></section>
+</div></section>
+<section id="movimentos" hidden><div class="card"><h2>Histórico de movimentações</h2><div id="allTransactions"></div></div></section>
+<section id="objetivos" hidden><div class="card"><h2>Meus objetivos</h2><form id="goalForm"><div class="row"><div class="field"><label>Nome do objetivo</label><input id="goalName" placeholder="Ex.: Minha reserva" required></div><div class="field"><label>Valor desejado (R$)</label><input id="goalAmount" type="number" min="1" step=".01" required></div></div><button type="submit">Criar objetivo</button></form><div id="goals" style="margin-top:14px"></div></div></section>
+<div class="footer">Lumina · Seu dinheiro com mais clareza. ✦</div>
+</div>
+<script>
+const $=id=>document.getElementById(id), money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+let data=JSON.parse(localStorage.getItem('lumina_transactions')||'[]');
+let goals=JSON.parse(localStorage.getItem('lumina_goals')||'[]');
+const today=new Date(); $('date').value=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+function save(){localStorage.setItem('lumina_transactions',JSON.stringify(data));localStorage.setItem('lumina_goals',JSON.stringify(goals));render()}
+function monthKey(d){return d.slice(0,7)}
+function render(){
+ const month=$('monthFilter').value||monthKey($('date').value), list=data.filter(x=>monthKey(x.date)===month);
+ const inc=list.filter(x=>x.type==='income').reduce((s,x)=>s+x.amount,0),out=list.filter(x=>x.type==='expense').reduce((s,x)=>s+x.amount,0);
+ $('income').textContent=money(inc);$('expense').textContent=money(out);$('balance').textContent=money(inc-out);
+ const months=[...new Set([monthKey($('date').value),...data.map(x=>monthKey(x.date))])].sort().reverse();
+ const old=$('monthFilter').value;$('monthFilter').innerHTML=months.map(m=>`<option value="${m}">${m.split('-').reverse().join('/')}</option>`).join('');$('monthFilter').value=months.includes(old)?old:month;
+ const html=arr=>arr.length?arr.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<div class="item"><div><b>${escapeHtml(x.description)}</b><small>${x.date.split('-').reverse().join('/')} · ${escapeHtml(x.category)}</small></div><div class="amount ${x.type==='income'?'positive':'negative'}">${x.type==='income'?'+':'−'} ${money(x.amount)} <button class="delete" data-del="${x.id}" title="Excluir">×</button></div></div>`).join(''):'<div class="empty">Nenhuma movimentação neste período. Que tal adicionar a primeira?</div>';
+ $('transactions').innerHTML=html(list);$('allTransactions').innerHTML=html(data);
+ $('goals').innerHTML=goals.length?goals.map(g=>`<div class="item"><div><b>${escapeHtml(g.name)}</b><small>Meta: ${money(g.amount)}</small></div><button class="delete" data-goal="${g.id}">Excluir</button></div>`).join(''):'<div class="empty">Seus objetivos aparecerão aqui.</div>';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('form').addEventListener('submit',e=>{e.preventDefault();data.push({id:crypto.randomUUID(),description:$('description').value.trim(),amount:Number($('amount').value),type:$('type').value,category:$('category').value,date:$('date').value});$('form').reset();$('date').value=new Date().toISOString().slice(0,10);save()});
+$('goalForm').addEventListener('submit',e=>{e.preventDefault();goals.push({id:crypto.randomUUID(),name:$('goalName').value.trim(),amount:Number($('goalAmount').value)});$('goalForm').reset();save()});
+document.addEventListener('click',e=>{if(e.target.dataset.del){data=data.filter(x=>x.id!==e.target.dataset.del);save()}if(e.target.dataset.goal){goals=goals.filter(x=>x.id!==e.target.dataset.goal);save()}});
+$('monthFilter').addEventListener('change',render);
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));['inicio','movimentos','objetivos'].forEach(id=>$(id).hidden=id!==b.dataset.tab)}));
+$('themeBtn').onclick=()=>document.body.classList.toggle('dark');
+$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({transactions:data,goals},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lumina-backup.json';a.click();URL.revokeObjectURL(a.href)};
+render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script>
+</body></html>

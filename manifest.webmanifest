@@ -1,0 +1,11 @@
+{
+  "name": "Lumina — Seu dinheiro com clareza",
+  "short_name": "Lumina",
+  "description": "Ilumine seu futuro financeiro.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1edff",
+  "theme_color": "#eee8ff",
+  "icons": [{"src":"icons/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
